@@ -50,11 +50,27 @@ async function addDocumentation(filePath) {
         const prompt = `Write clear, professional comments for the following code:\n\n${fileContent}`;
         const result = await model.generateContent(prompt);
         const aiGeneratedDocs = result.response.text();
-        const updatedContent = `/*\n${aiGeneratedDocs}\n*/\n\n${fileContent}`;
+
+        // Split AI-generated documentation into lines
+        let docLines = aiGeneratedDocs.split("\n");
+
+        // Remove the first line and the last two lines
+        if (docLines.length > 2) {
+            docLines = docLines.slice(1, docLines.length - 2);
+        } else {
+            console.warn("AI documentation is too short to remove the first and last lines.");
+        }
+
+        // Join the modified documentation back into a single string
+        const updatedContent = docLines.join("\n");
+
+        // Write the updated content (AI response) to the file
         fs.writeFileSync(filePath, updatedContent, "utf-8");
         console.log(`✅ Documentation added to: ${filePath}`);
     } catch (error) {
         console.error(`❌ Error processing ${filePath}:`, error);
     }
 }
+
+
 processFilesRecursively(process.cwd());
