@@ -1,0 +1,18 @@
+{
+  "name": "2702-documentation-writer",
+  "version": "1.0.0",
+  "description": "Write documentation in the form of comments through Gemini",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.23.0",
+    "dotenv": "^16.4.7",
+    "terminal-kit": "^3.1.2"
+  },
+  "type": "module"
+}
